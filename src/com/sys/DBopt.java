@@ -57,7 +57,7 @@ public class DBopt extends DBMain<Student> {
 
 	@Override
 	public int deleteRow(String key) throws ClassNotFoundException, SQLException {
-		getPreparedStatement("delete from students where id=?");
+		getPreparedStatement("delete from students where stuId=?");
 		s.setString(1, key);
 		int res = s.executeUpdate();
 		return res;

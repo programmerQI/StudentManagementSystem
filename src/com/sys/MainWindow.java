@@ -64,8 +64,8 @@ public class MainWindow extends JFrame{
 		this.setLocation((dm.width-MAINFRAME_WIDTH)/2, (dm.height-MAINFRAME_HEIGHT)/2);
 		
 		columnNames = new Vector<String>();
+		columnNames.add("NStudent_ID");
 		columnNames.add("Name");
-		columnNames.add("Student_ID");
 		columnNames.add("Gender");
 		columnNames.add("Nation");
 		columnNames.add("Email");
@@ -131,6 +131,19 @@ public class MainWindow extends JFrame{
 		return i;
 	}
 	
+	public Student getIdFromTable(int row) {
+		Vector<String> data= rowData.get(row);
+		Student stu =new Student();
+		
+		stu.setStu_id(data.get(0));
+		stu.setStu_name(data.get(1));
+		stu.setStu_gender(data.get(2));
+		stu.setStu_nation(data.get(3));
+		stu.setStu_email(data.get(4));
+		
+		return stu;
+	}
+	
 	public void setAdapter(ControlAdapter a) {
 		this.adapter=a;
 		jb_add.addActionListener(adapter);
@@ -140,5 +153,5 @@ public class MainWindow extends JFrame{
 		jb_search.addActionListener(adapter);
 		jt.addMouseListener(adapter);
 	}
-
+	
 }

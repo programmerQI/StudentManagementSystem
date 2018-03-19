@@ -73,6 +73,14 @@ public class ModifyStuDialog extends JDialog {
 		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	}
 	
+	public void reset() {
+		jtf_id.setText("");
+		jtf_name.setText("");
+		jtf_gender.setText("");
+		jtf_nation.setText("");
+		jtf_email.setText("");
+	}
+	
 	public void setAdapter(ControlAdapter a) {
 		this.adapter=a;
 		jb_submit.addActionListener(adapter);
@@ -103,8 +111,8 @@ public class ModifyStuDialog extends JDialog {
 
 
 
-	public void setJtf_id(JLabel jtf_id) {
-		this.jtf_id = jtf_id;
+	public void setJtf_id(String jtf_id) {
+		this.jtf_id.setText(jtf_id);
 	}
 
 
@@ -115,8 +123,8 @@ public class ModifyStuDialog extends JDialog {
 
 
 
-	public void setJtf_name(JTextField jtf_name) {
-		this.jtf_name = jtf_name;
+	public void setJtf_name(String jtf_name) {
+		this.jtf_name.setText(jtf_name);;
 	}
 
 
@@ -127,8 +135,8 @@ public class ModifyStuDialog extends JDialog {
 
 
 
-	public void setJtf_gender(JTextField jtf_gender) {
-		this.jtf_gender = jtf_gender;
+	public void setJtf_gender(String jtf_gender) {
+		this.jtf_gender.setText(jtf_gender);;
 	}
 
 
@@ -139,14 +147,17 @@ public class ModifyStuDialog extends JDialog {
 
 
 
-	public void setJtf_nation(JTextField jtf_nation) {
-		this.jtf_nation = jtf_nation;
+	public void setJtf_nation(String jtf_nation) {
+		this.jtf_nation.setText(jtf_nation);;
 	}
 
 
+	public JTextField getJtf_email() {
+		return jtf_email;
+	}
 
-	public void setJtf_email(JTextField jtf_email) {
-		this.jtf_email = jtf_email;
+	public void setJtf_email(String jtf_email) {
+		this.jtf_email.setText(jtf_email);;
 	}
 
 

@@ -76,6 +76,14 @@ public class AddStuDialog extends JDialog{
 		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	}
 	
+	public void reset() {
+		jtf_id.setText("");
+		jtf_name.setText("");
+		jtf_gender.setText("");
+		jtf_nation.setText("");
+		jtf_email.setText("");
+	}
+	
 	public void setAdapter(ControlAdapter a) {
 		this.adapter=a;
 		jb_submit.addActionListener(adapter);
