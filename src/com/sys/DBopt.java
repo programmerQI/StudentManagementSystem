@@ -40,6 +40,7 @@ public class DBopt extends DBMain<Student> {
 		s.setString(4, obj.getStu_nation());
 		s.setString(5, obj.getStu_email());
 		int res = s.executeUpdate();
+		release();
 		return res;
 	}
 
@@ -52,6 +53,7 @@ public class DBopt extends DBMain<Student> {
 		s.setString(4, obj.getStu_email());
 		s.setString(5, key);
 		int res = s.executeUpdate();
+		release();
 		return res;
 	}
 
@@ -60,6 +62,7 @@ public class DBopt extends DBMain<Student> {
 		getPreparedStatement("delete from students where stuId=?");
 		s.setString(1, key);
 		int res = s.executeUpdate();
+		release();
 		return res;
 	}
 	

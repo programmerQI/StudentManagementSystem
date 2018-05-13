@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -17,6 +18,8 @@ public class ControlAdapter extends MouseAdapter implements ActionListener{
 	private ModifyStuDialog md;
 	
 	private Student currentSelected;
+	
+	private Set<Listener> listenerslist;
 
 	public ControlAdapter(DBopt db, MainWindow mw, AddStuDialog ad, ModifyStuDialog md) {
 		
@@ -89,6 +92,15 @@ public class ControlAdapter extends MouseAdapter implements ActionListener{
 					}
 				}
 			}
+		}
+		try {
+			setData();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 	}

@@ -33,5 +33,6 @@ public class StuSys {
 	public static void main(String[] args) {
 		
 		StuSys sys = new StuSys();
+		
 	}
 }

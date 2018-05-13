@@ -14,12 +14,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.AbstractTableModel;
 
-public class MainWindow extends JFrame{
+public class MainWindow extends JFrame {
 	
 	/**
-	 * This is the main frame.
+	 * This is the main frame.)
 	 */
 	private static final long serialVersionUID = 1L;
 	
@@ -43,12 +43,73 @@ public class MainWindow extends JFrame{
 	private JButton jb_modify;
 	
 	private JScrollPane jp;
-	private DefaultTableModel tm;
 	private JTable jt;
-	private Vector<String> columnNames;
-	private Vector<Vector<String>> rowData;
+	private static String[] COLUMNNAME= {"StudentID","Name","Gender","Nation","Mail"};
+	private Vector<Vector<String>> data;
 	
-	
+	class TModel extends AbstractTableModel{
+		
+		private Vector<Vector<String>> data = new Vector<Vector<String>>();
+		
+		public int setTableData(ArrayList<Student> l) {
+			if(l==null) {
+				return -1;
+			}
+			int i=0;
+			for(;i<l.size();i++) {
+				Student stu = l.get(i);
+				Vector<String> v = new Vector<String>();
+				v.add(stu.getStu_id());
+				v.add(stu.getStu_name());
+				v.add(stu.getStu_gender());
+				v.add(stu.getStu_nation());
+				v.add(stu.getStu_email());
+				data.add(v);
+			}
+			return i;
+		}
+		
+		public Student getIdFromTable(int row) {
+			Vector<String> d= data.get(row);
+			Student stu =new Student();
+			stu.setStu_id(d.get(0));
+			stu.setStu_name(d.get(1));
+			stu.setStu_gender(d.get(2));
+			stu.setStu_nation(d.get(3));
+			stu.setStu_email(d.get(4));
+			
+			return stu;
+		}
+		
+		@Override
+		public String getColumnName(int y) {
+			return COLUMNNAME[y];
+		}
+
+		@Override
+		public int getColumnCount() {
+			return COLUMNNAME.length;
+		}
+
+		@Override
+		public int getRowCount() {
+			return data.size();
+		}
+
+		@Override
+		public Object getValueAt(int y, int x) {
+			return data.get(y).get(x);
+		}
+		
+		@Override
+		public boolean isCellEditable(int y, int x) {
+			return false;
+		}
+		
+	}
+
+	private TModel tm;
+
 	@SuppressWarnings("serial")
 	public MainWindow() {
 		super();
@@ -63,29 +124,33 @@ public class MainWindow extends JFrame{
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setLocation((dm.width-MAINFRAME_WIDTH)/2, (dm.height-MAINFRAME_HEIGHT)/2);
 		
-		columnNames = new Vector<String>();
-		columnNames.add("NStudent_ID");
-		columnNames.add("Name");
-		columnNames.add("Gender");
-		columnNames.add("Nation");
-		columnNames.add("Email");
-		rowData = new Vector<Vector<String>>();
+		tm = new TModel();
+		jt = new JTable(tm);
+		jp = new JScrollPane(jt);
+		
+//		columnNames = new Vector<String>();
+//		columnNames.add("Student_ID");
+//		columnNames.add("Name");
+//		columnNames.add("Gender");
+//		columnNames.add("Nation");
+//		columnNames.add("Email");
+//		rowData = new Vector<Vector<String>>();
 //		tm = new DefaultTableModel(rowData, columnNames) {
 //			
 //			public boolean isCellEditable(int arg0, int arg1) {
 //				return false;
 //			}
 //		};
-		jt = new JTable(rowData,columnNames) {
-			
-			@Override
-			public boolean isCellEditable(int arg0, int arg1) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		};
-		jp = new JScrollPane(jt);
-		
+//		jt = new JTable(rowData,columnNames) {
+//			
+//			@Override
+//			public boolean isCellEditable(int arg0, int arg1) {
+//				// TODO Auto-generated method stub
+//				return false;
+//			}
+//		};
+//		jp = new JScrollPane(jt);
+//		
 		
 		jp1 = new JPanel();
 		gly = new GridLayout();
@@ -117,6 +182,7 @@ public class MainWindow extends JFrame{
 		if(l==null) {
 			return -1;
 		}
+		tm.data.clear();
 		int i=0;
 		for(;i<l.size();i++) {
 			Student stu = l.get(i);
@@ -126,20 +192,21 @@ public class MainWindow extends JFrame{
 			v.add(stu.getStu_gender());
 			v.add(stu.getStu_nation());
 			v.add(stu.getStu_email());
-			rowData.add(v);
+			tm.data.add(v);
 		}
+		tm.fireTableDataChanged();
 		return i;
 	}
 	
 	public Student getIdFromTable(int row) {
-		Vector<String> data= rowData.get(row);
+		Vector<String> d = tm.data.get(row);
 		Student stu =new Student();
 		
-		stu.setStu_id(data.get(0));
-		stu.setStu_name(data.get(1));
-		stu.setStu_gender(data.get(2));
-		stu.setStu_nation(data.get(3));
-		stu.setStu_email(data.get(4));
+		stu.setStu_id(d.get(0));
+		stu.setStu_name(d.get(1));
+		stu.setStu_gender(d.get(2));
+		stu.setStu_nation(d.get(3));
+		stu.setStu_email(d.get(4));
 		
 		return stu;
 	}
